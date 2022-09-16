@@ -1,0 +1,28 @@
+import pymongo
+from model.movies import Movies
+
+client = pymongo.MongoClient("your_mongo_db_connection_string")
+
+db = client["movies"]
+
+movies = db["movies"]
+
+
+def create_movie(movie):
+    movies.insert_one(movie.__dict__)
+
+
+def read_movie(movie_id):
+    return movies.find_one({"movie_id": movie_id}, {'_id': 0})
+
+
+def read_all_movies():
+    return list(movies.find({}, {'_id': 0}))
+
+
+def update_movie(movie_id, movie):
+    movies.update_one({"movie_id": movie_id}, {"$set": movie.__dict__}, upsert=True)
+
+
+def delete_movie(movie_id):
+    movies.delete_one({"movie_id": movie_id})

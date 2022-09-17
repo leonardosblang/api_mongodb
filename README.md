@@ -9,6 +9,7 @@ Instalar dependências
 pip install fastapi
 pip install uvicorn[standard]
 pip install pymongo
+pip install dnspython
 ```
 
 Rodar
